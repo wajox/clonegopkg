@@ -22,7 +22,7 @@ func NewCloneCmd() *cobra.Command {
 		Use:     "c",
 		Aliases: []string{"clone"},
 		Short:   "clone pkg from remote git repository",
-		Example: "clonegopkg clone git@github.com:ildarusmanov/gobase.git github.com/ildarusmanov/newproject",
+		Example: "clonegopkg clone git@github.com:wajox/gobase.git github.com/wajox/newproject",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) < 2 {
 				log.Error().Msg("please provide repository url, directory and pkg name")

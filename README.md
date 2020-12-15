@@ -8,6 +8,8 @@ go install -i github.com/wajox/clonegopkg
 ```
 
 ## Usage
+
 ```sh
-clonegopkg clone git@github.com:ildarusmanov/gobase.git github.com/ildarusmanov/newproject
+# clonegopkg clone [git_repository] [new_pkg]
+clonegopkg clone git@github.com:wajox/gobase.git github.com/wajox/newproject
 ```
