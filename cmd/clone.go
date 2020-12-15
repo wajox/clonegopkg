@@ -46,12 +46,16 @@ func NewCloneCmd() *cobra.Command {
 			oldPkg, err := helpers.GetPkgNameFromGomod(dir)
 			if err != nil {
 				log.Error().Err(err).Msg("can not parse pkg name from go.mod")
-
 				return
 			}
 
 			if err := helpers.StrReplaceInDirectory(dir, oldPkg, newPkg); err != nil {
 				log.Error().Err(err).Msg("can not update pkg name in all files")
+				return
+			}
+
+			if err := helpers.RemoveGitRemoteOrigin(dir); err != nil {
+				log.Warn().Err(err).Msg("can not remove git remote origin")
 			}
 		},
 	}
