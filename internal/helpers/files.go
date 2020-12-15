@@ -1,10 +1,12 @@
 package helpers
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -42,13 +44,27 @@ func GetFilesPathsList(dir string) ([]string, error) {
 			return fmt.Errorf("folder traversing error: %s", err)
 		}
 
-		if !info.IsDir() {
-			relFilePath := strings.ReplaceAll(curPath, dir, "")
-			filesList = append(filesList, relFilePath)
+		if !info.IsDir() && !strings.Contains(curPath, ".git/") {
+			filesList = append(filesList, curPath)
 		}
 
 		return nil
 	})
 
 	return filesList, err
+}
+func GetPkgNameFromGomod(dir string) (string, error) {
+	gomodfile := fmt.Sprintf("%s/go.mod", dir)
+	read, err := ioutil.ReadFile(gomodfile)
+	if err != nil {
+		return "", err
+	}
+
+	re := regexp.MustCompile(`module (.*)`)
+	res := re.FindSubmatch(read)
+	if len(res) < 2 {
+		return "", errors.New("can not parse pkg name from go.mod")
+	}
+
+	return string(res[1]), nil
 }
