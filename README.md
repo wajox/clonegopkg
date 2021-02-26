@@ -4,7 +4,7 @@ This is a simple CLI tool to create your own package from template based on any 
 
 ## Install
 ```sh
-go install -i github.com/wajox/clonegopkg
+go install github.com/wajox/clonegopkg
 ```
 
 ## Usage
